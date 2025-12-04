@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Редагувати клієнта</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="page-wrapper">
+<nav>
+    <a href="/customers">Клієнти</a> |
+    <a href="/vehicles">Транспорт</a> |
+    <a href="/sales">Продажі</a> |
+    <a href="/home">Головна</a>
+</nav>
+<hr/>
+
+<h1>Редагувати клієнта</h1>
+
+<form th:action="@{'/customers/edit/' + ${customer.customerId}}" th:object="${customer}" method="post">
+    <label>Ім'я: <input type="text" th:field="*{name}" /></label><br/>
+    <label>Телефон: <input type="text" th:field="*{phone}" /></label><br/>
+    <label>Email: <input type="email" th:field="*{email}" /></label><br/>
+    <button type="submit">Зберегти</button>
+    <a th:href="@{/customers}">Скасувати</a>
+</form>
+</div>
+</body>
+</html>

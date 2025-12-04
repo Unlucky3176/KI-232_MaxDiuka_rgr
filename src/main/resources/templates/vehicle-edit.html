@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Редагувати транспорт</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="page-wrapper">
+<nav>
+    <a href="/customers">Клієнти</a> |
+    <a href="/vehicles">Транспорт</a> |
+    <a href="/sales">Продажі</a> |
+    <a href="/home">Головна</a>
+</nav>
+<hr/>
+
+<h1>Редагувати Т/З</h1>
+
+<form th:action="@{'/vehicles/edit/' + ${vehicle.vehicleId}}" th:object="${vehicle}" method="post">
+    <label>Марка: <input type="text" th:field="*{brand}" /></label><br/>
+    <label>Модель: <input type="text" th:field="*{model}" /></label><br/>
+    <label>Тип двигуна: <input type="text" th:field="*{engineType}" /></label><br/>
+    <label>Об'єм двигуна (см<sup>3</sup>): <input type="number" th:field="*{engineCapacity}" /></label><br/>
+    <button type="submit">Зберегти</button>
+    <a th:href="@{/vehicles}">Скасувати</a>
+</form>
+</div>
+</body>
+</html>

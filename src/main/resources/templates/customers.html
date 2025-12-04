@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Customers</title></head>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<div class="page-wrapper">
+<body><h1>Клієнти</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Ім'я</th>
+        <th>Номер телефону</th>
+        <th>Email</th>
+        <th>Дія</th>
+    </tr>
+    <tr th:each="c : ${customers}">
+        <td th:text="${c.customerId}"></td>
+        <td th:text="${c.name}"></td>
+        <td th:text="${c.phone}"></td>
+        <td th:text="${c.email}"></td>
+        <td>
+            <form th:action="@{'/customers/edit/' + ${c.customerId}}" method="get" style="display:inline">
+                <button type="submit" class="btn-edit">Edit</button>
+            </form>
+
+            <form method="post" action="/customers/delete" style="display:inline">
+                <input type="hidden" name="id" th:value="${c.customerId}" />
+                <button type="submit" class="btn-delete">Delete</button>
+            </form>
+        </td>
+
+
+    </tr>
+</table>
+<h2>Додати клієнта</h2>
+<form method="post" action="/customers" th:object="${newCustomer}"><label>Ім'я: <input type="text" th:field="*{name}"/></label><br/>
+    <label>Номер телефону: <input type="text" th:field="*{phone}"/></label><br/> <label>Email: <input type="text"
+                                                                                             th:field="*{email}"/></label><br/>
+    <button type="submit">Додати</button>
+</form>
+<nav><a href="/vehicles">Транспорт</a> | <a href="/sales">Продажі</a> | <a href="/home">Головна</a></nav>
+<hr/>
+    </div>
+</body>
+

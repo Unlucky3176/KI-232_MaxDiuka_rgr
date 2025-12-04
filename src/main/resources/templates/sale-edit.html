@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Редагувати продаж</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="page-wrapper">
+<nav>
+    <a href="/customers">Клієнти</a> |
+    <a href="/vehicles">Транспорт</a> |
+    <a href="/sales">Продажі</a> |
+    <a href="/home">Головна</a>
+</nav>
+<hr/>
+
+<h1>Редагувати продаж</h1>
+
+<form th:action="@{'/sales/edit/' + ${sale.saleId}}" th:object="${sale}" method="post">
+    <label>Дата: <input type="date" th:field="*{saleDate}" /></label><br/>
+
+    <label>Клієнт:
+        <select th:field="*{customerId}">
+            <option th:each="c : ${customers}" th:value="${c.customerId}" th:text="${c.name} + ' (id=' + ${c.customerId} + ')'"></option>
+        </select>
+    </label><br/>
+
+    <label>Транспорт:
+        <select th:field="*{vehicleId}">
+            <option th:each="v : ${vehicles}" th:value="${v.vehicleId}" th:text="${v.brand} + ' ' + ${v.model} + ' (id=' + ${v.vehicleId} + ')'"></option>
+        </select>
+    </label><br/>
+
+    <label>Сума ($): <input type="number" th:field="*{amount}" /></label><br/>
+
+    <button type="submit">Зберегти</button>
+    <a th:href="@{/sales}">Скасувати</a>
+</form>
+</div>
+</body>
+</html>

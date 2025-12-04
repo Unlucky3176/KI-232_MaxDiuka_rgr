@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Raw SQL</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="page-wrapper">
+<h1>Виконати сирий SQL (демонстрація вразливості)</h1>
+
+<form method="post" action="/raw-sql">
+    <textarea name="sql" rows="6" cols="80" th:text="${sql}">SELECT * FROM customer;</textarea><br/>
+    <button type="submit">Виконати</button>
+</form>
+
+<div th:if="${error}">
+    <h3 style="color:red">Помилка:</h3>
+    <pre th:text="${error}"></pre>
+</div>
+
+<div th:if="${result}">
+    <h3>Результат:</h3>
+    <pre th:each="r : ${result}" th:text="${r}"></pre>
+</div>
+
+<nav>
+    <a href="/customers">Клієнти</a> |
+    <a href="/vehicles">Транспорт</a> |
+    <a href="/sales">Продажі</a>
+</nav>
+</div>
+</body>
+</html>

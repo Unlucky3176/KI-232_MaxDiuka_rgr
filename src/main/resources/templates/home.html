@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Головна</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="page-wrapper">
+    <h1>Вітаємо на головній сторінці</h1>
+
+    <div class="register-text" th:if="${username == null}">
+        Ви не увійшли.
+        <a th:href="@{/login}">Увійти</a> або
+        <a th:href="@{/register}">Зареєструватись</a>
+    </div>
+
+    <div class="register-text" th:if="${username}">
+        Ви увійшли як: <strong th:text="${username}"></strong><br>
+        <a th:href="@{/logout}">Вийти</a>
+    </div>
+
+    <h2 class="menu-title" th:if="${username}">Меню:</h2>
+
+    <div class="menu" th:if="${username}">
+        <a th:href="@{/vehicles}">Транспортні засоби</a>
+        <a th:href="@{/sales}">Продажі</a>
+        <a th:href="@{/customers}">Клієнти</a>
+    </div>
+</div>
+</body>
+</html>

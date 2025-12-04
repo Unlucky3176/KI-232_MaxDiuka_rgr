@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sales</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="page-wrapper">
+<h1>Продажі</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Дата</th>
+        <th>Покупець</th>
+        <th>Т/З</th>
+        <th>Сумма ($)</th>
+        <th>Дія</th>
+    </tr>
+
+    <tr th:each="s : ${sales}">
+        <td th:text="${s.saleId}"></td>
+        <td th:text="${s.saleDate}"></td>
+        <td th:text="${s.customerId}"></td>
+        <td th:text="${s.vehicleId}"></td>
+        <td th:text="${s.amount}"></td>
+
+        <td>
+            <form th:action="@{'/sales/edit/' + ${s.saleId}}" method="get" style="display:inline">
+                <button type="submit" class="btn-edit">Edit</button>
+            </form>
+
+            <form method="post" action="/sales/delete" style="display:inline">
+                <input type="hidden" name="id" th:value="${s.saleId}"/>
+                <button type="submit" class="btn-delete">Delete</button>
+            </form>
+        </td>
+
+    </tr>
+
+</table>
+
+<h2>Додати продаж</h2>
+
+<form method="post" action="/sales" th:object="${newSale}">
+
+    <label>Дата:
+        <input type="date" th:field="*{saleDate}"/>
+    </label>
+    <br/>
+
+    <label>Клієнт:
+        <select th:field="*{customerId}">
+            <option th:each="c : ${customers}"
+                    th:value="${c.customerId}"
+                    th:text="${c.name}">
+            </option>
+        </select>
+    </label>
+    <br/>
+
+    <label>Транспорт:
+        <select th:field="*{vehicleId}">
+            <option th:each="v : ${vehicles}"
+                    th:value="${v.vehicleId}"
+                    th:text="${v.brand + ' ' + v.model}">
+            </option>
+        </select>
+    </label>
+    <br/>
+
+    <label>Сума ($):
+        <input type="number" th:field="*{amount}">
+    </label>
+    <br/><br/>
+
+    <button type="submit">Додати</button>
+</form>
+
+<hr/>
+
+<nav>
+    <a href="/customers">Клієнти</a> |
+    <a href="/vehicles">Транспорт</a> |
+    <a href="/home">Головна</a>
+</nav>
+</div>
+</body>
+</html>

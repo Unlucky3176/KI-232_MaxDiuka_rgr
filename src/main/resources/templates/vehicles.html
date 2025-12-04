@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Vehicles</title></head>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<div class="page-wrapper">
+<body><h1>Транспортні засоби</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Марка</th>
+        <th>Модель</th>
+        <th>Тип двигуна</th>
+        <th>Об'єм двигуна(см<sup>3</sup>)</th>
+        <th>Дія</th>
+    </tr>
+    <tr th:each="v : ${vehicles}">
+        <td th:text="${v.vehicleId}"></td>
+        <td th:text="${v.brand}"></td>
+        <td th:text="${v.model}"></td>
+        <td th:text="${v.engineType}"></td>
+        <td th:text="${v.engineCapacity}"></td>
+        <td>
+            <form th:action="@{'/vehicles/edit/' + ${v.vehicleId}}" method="get" style="display:inline">
+                <button type="submit" class="btn-edit">Edit</button>
+            </form>
+
+            <form method="post" action="/vehicles/delete" style="display:inline">
+                <input type="hidden" name="id" th:value="${v.vehicleId}" />
+                <button type="submit" class="btn-delete">Delete</button>
+            </form>
+        </td>
+
+    </tr>
+</table>
+<h2>Додати транспортний засіб</h2>
+<form method="post" action="/vehicles" th:object="${newVehicle}"><label>Марка: <input th:field="*{brand}"/></label><br/>
+    <label>Модель: <input th:field="*{model}"/></label><br/> <label>Тип двигуна: <input
+            th:field="*{engineType}"/></label><br/> <label>Об'єм двигуна(см<sup>3</sup>): <input th:field="*{engineCapacity}"/></label><br/>
+    <button type="submit">Додати</button>
+</form>
+<nav><a href="/customers">Клієнти</a> | <a href="/sales">Продажі</a> | <a href="/home">Головна</a></nav>
+<hr/>
+</div>
+</body>
+</html>
